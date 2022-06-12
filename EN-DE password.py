@@ -7,24 +7,46 @@ Window.title("password manager")
 Window.iconbitmap(bitmap="gray75")
 
 f1 = Frame(Window)        # frame 1 button ha dakheleshe
-f1.pack(pady=20,)
+f1.pack(pady=20)
+
+# -----------------// Master Password //-----------------
+def MasterPass():
+    secretKey = "Fghcwnv/Rcuuyqtf"    #  encrypted master password
+    finalPass = ""
+    for i in secretKey :
+        finalPass += chr((ord(i)-2))     # takes i asci code decrypt it and turns it to str again
+    return finalPass
+# -----------------// Master Password //-----------------
+
 
 # -----------------// command button ha //-----------------
 
-def encrypt():   # Gets all output text and 
-    insideText2 = masterPass.get()
-    if insideText2 == "Default-Password":
+def encrypt():   # Gets all output text and encrypts it
+    insideText2 = masterPass.get()                             # gets masterPassword Entry
+    if insideText2 == MasterPass():                            #Check if it's True works otherwise shows Error
         insideText = output.get(1.0, "end-1c")
-
+        secretKey = ""
+        for i in insideText :
+            secretKey += chr(ord(i) + 2)
+        clear()
+        output.insert(INSERT, secretKey)
+        en_button.config(state=DISABLED)        # disabel this button and actives others
+        de_button.config(state=NORMAL)
     else:
         messagebox.showerror("password", "wrong password try again !")
 
 
-def decrypt():      # Gets all output text and 
+def decrypt():      # Gets all output text and decrypts it
     insideText2 = masterPass.get()
     if insideText2 == "Default-Password":
         insideText = output.get(1.0, "end-1c")
-
+        secretKey = ""
+        for i in insideText :
+            secretKey += chr(ord(i) - 2)
+        clear()
+        output.insert(INSERT, secretKey)
+        de_button.config(state=DISABLED)        # disabel this button and actives others
+        en_button.config(state=NORMAL)
     else:
         messagebox.showerror("password", "wrong password try again !")
 
@@ -33,6 +55,8 @@ def clear():      #  clears all the output
     insideText2 = masterPass.get()
     if insideText2 == "Default-Password":
         output.delete(1.0, END)
+        en_button.config(state=NORMAL)      # actives both buttons
+        de_button.config(state=NORMAL)
     else:
         messagebox.showerror("password", "wrong password try again !")
 
