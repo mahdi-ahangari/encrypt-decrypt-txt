@@ -109,62 +109,69 @@ masterPass = Entry(Window, width=60, show= "*", bd=3, bg='silver')
 masterPass.pack()
 # -----------------// body //-----------------
 
-f2 = Frame(Window)        # frame 2 button ha dakheleshe
-f2.pack(pady=5, padx=19, fill="x")
-
 # -----------------// Change Password section (inside window2) //-----------------
+f2 = Frame(Window)        
+f2.pack(pady=5, padx=16, fill="x")   # frame 2 button ha dakheleshe
 W2exist = False
 
 
 def NewWindow():
     global W2exist
-    if not W2exist:
-        Window2 = Toplevel()
-        Window2.focus_force()
-        Window2.geometry("400x130+550+350")
-        Window2.title("Change Password")
-        Window2.resizable(False, False)
-        W2exist = True
-        l1 = Label(Window2, text="you can change master password only if you know the\n\
-        original wich means only if i want you to know :)", font=("Helvetica", 13)).grid(row=0, column=0, columnspan=2)
+    try :
+        Window2.destroy()
+    except :
+        pass
+    Window2 = Toplevel()
+    Window2.focus_force()
+    Window2.geometry("400x130+550+350")
+    Window2.title("Change Password")
+    Window2.resizable(False, False)
+    W2exist = True
+    l1 = Label(Window2, text="you can change master password only if you know the\n\
+    original wich means only if i want you to know :)", font=("Helvetica", 13)).grid(row=0, column=0, columnspan=2)
 
-        l2 = Label(Window2, text="enter original password :").grid(row=1, column=0, sticky=W)
-        masterPass = Entry(Window2, width=30, show= "*", bd=3, bg='silver')
-        masterPass.grid(row=1, column=0, sticky=E)
+    l2 = Label(Window2, text="enter original password :").grid(row=1, column=0, sticky=W)
 
-        l2 = Label(Window2, text="enter new password :").grid(row=2, column=0, sticky=W)
-        newPass = Entry(Window2, width=30, bd=3, bg='silver')
-        newPass.grid(row=2, column=0, sticky=E)
+    masterPass = Entry(Window2, width=30, show= "*", bd=3, bg='silver')
+    masterPass.grid(row=1, column=0, sticky=E)
 
-        l3 = Label(Window2,width=50).grid(row=4, column=0, sticky=W) # hidden Lable for fixing grid system
+    l2 = Label(Window2, text="enter new password :").grid(row=2, column=0, sticky=W)
 
-        # -------------// Confirm Change Password Button (inside window2) //-------------
-        
-        
-        def Change():
-            global secretKey                   # daryaft har 2 input , check sehat original pass , change new one to original
-            oldPassword = masterPass.get()
-            newPassword = newPass.get()
-            if oldPassword == MasterPass(secretKey):
-                En_newPass = ""
-                for i in newPassword:
-                    En_newPass += chr((ord(i)+2))
-                
-                with open("secretkey.TXT", "r+") as f:
-                    f.truncate()
-                    f.write("Please Don't Change anything\n")
-                    f.write(En_newPass)
-            else:
-                messagebox.showerror("password", "wrong password try again !")
-                Window2.focus_force()
-        
-        ChangePass = Button(Window2, text="Change Masster Password", bg='lightgray', font=("Helvetica", 10), command=Change)
-        ChangePass.grid(row=3, column=0, pady=10)
+    newPass = Entry(Window2, width=30, bd=3, bg='silver')
+    newPass.grid(row=2, column=0, sticky=E)
 
-        Exit2 = Button(Window2, text="EXIT", bg='gray', padx=8, relief="groove", bd=4, font=("Helvetica", 7), command=Window.destroy)
-        Exit2.grid(row=3, column=0, pady=15,sticky=E)
-        
-        
+    l3 = Label(Window2,width=50).grid(row=4, column=0, sticky=W) # hidden Lable for fixing grid system
+
+    # -------------// Confirm Change Password Button (inside window2) //-------------
+    
+    
+    def Change():                 # daryaft har 2 input , check sehat original pass , change new one to original
+        oldPassword = masterPass.get()
+        newPassword = newPass.get()
+        if oldPassword == MasterPass(secretKey):
+            En_newPass = ""
+            for i in newPassword:
+                En_newPass += chr((ord(i)+2))
+            
+            with open("secretkey.TXT", "r+") as f:
+                f.truncate()
+                f.write("Please Don't Change anything, if you want to reset password just delete file\n")
+                f.write(En_newPass)
+            messagebox.showinfo("password", f"Nice !!! your new Master Password is : {[ newPassword ]}\nRestart program to save changes")
+            Window2.destroy()
+        else:
+            messagebox.showerror("password", "wrong password try again !")
+            Window2.focus_force()
+            
+
+
+    ConfirmChange = Button(Window2, text="Change Masster Password", bg='lightgray', font=("Helvetica", 10), command=Change)
+    ConfirmChange.grid(row=3, column=0, pady=10)
+
+    Exit2 = Button(Window2, text="EXIT", bg='gray', padx=8, relief="groove", bd=4, font=("Helvetica", 7), command=Window2.destroy)
+    Exit2.grid(row=3, column=0, pady=15,sticky=E)
+
+
         # -------------// Confirm Change Password Button (inside window2) //-------------
 
 
