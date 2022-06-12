@@ -31,9 +31,6 @@ def Runapp():
     MONITOR = Text(window, bg='silver', width=10, height=0, bd=3, font=("Helvetica", 20), padx=25, pady=30)
     MONITOR.grid(row=0, column=0, columnspan=3, pady=10, padx=25)
 
-    # M_TEXT = Label(window, text="", bg='silver',
-    #             font=("", 20, ITALIC), fg='black')
-    # M_TEXT.grid(row=0, column=0, sticky=E)
 
     Guide_T = Label(
         window, text="click button to Create a random password")
@@ -49,3 +46,4 @@ def Runapp():
 
 
     window.mainloop()
+# Runapp()

@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from RandomPass import *
 
 Window = Tk()
 Window.geometry("400x400+500+200")
@@ -13,7 +14,7 @@ f1.pack(pady=20)
 # -----------------// Master Password //-----------------
 secretKey = "Fghcwnv/Rcuuyqtf"
 
-        # -------------// ave TxT Password //-----------------
+        # -------------// Save TxT Password //-----------------
 def writeSecret():
     global secretKey
     with open("secretkey.TXT", "r+") as f:
