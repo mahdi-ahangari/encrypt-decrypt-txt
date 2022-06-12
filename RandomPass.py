@@ -2,13 +2,13 @@ from tkinter import *
 import random
 from tkinter.font import ITALIC
 
-def ss():
+def Runapp():
     window = Tk()
     window.geometry('250x250+600+200')
     window.iconphoto(False, PhotoImage(
         file='D:\programing\python codes\RandomPass\RandomIcon.ico'))
     window.title("RandomPass")
-    # window.resizable(False, False)
+    window.resizable(False, False)
 
     # RamzNow = ""
 
@@ -40,14 +40,12 @@ def ss():
     Guide_T.grid(row=1, column=0, pady=10, padx=5, columnspan=3)
 
     Create = Button(window, text="create", width=13,
-                    height=2, bd=5, background="lightgray", command=createrndm)
+                    height=2, bd=3, background="lightgray", command=createrndm)
     Create.grid(row=2, column=0, pady=10, padx=5)
     
     Clear = Button(window, text="clear", width=13,
-                    height=2, bd=5, background="lightgray", command=ClearAll)
+                    height=2, bd=3, background="lightgray", command=ClearAll)
     Clear.grid(row=2, column=1)
 
 
     window.mainloop()
-
-ss()
