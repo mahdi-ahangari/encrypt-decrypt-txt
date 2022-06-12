@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-from RandomPass import *
+from RandomPass import Runapp
 
 Window = Tk()
 Window.geometry("400x400+500+200")
@@ -98,7 +98,7 @@ clear_button.grid(row=0, column=3, padx=10)
 
 # -----------------// body //-----------------
 Tozihat = Label(Window, text="Encrypt/Decrypt text !!! ", font=("Helvetica", 14))
-Tozihat.pack(pady=10)
+Tozihat.pack()
 
 output = Text(Window, width=45, height=10, bd=3, bg='silver')
 output.pack(pady=10)
@@ -178,13 +178,16 @@ def NewWindow():
 
 
 ChangePass = Button(f2, text="Change Masster Password", bg='lightgray', font=("Helvetica", 10), command=NewWindow)
-ChangePass.pack(side=LEFT)
+ChangePass.grid(row=0, column=0, pady=10, sticky=W)
+
+RandomPass = Button(f2, text="Random Pass", bg='lightgray', font=("Helvetica", 10), command=Runapp)
+RandomPass.grid(row=0, column=1, pady=10, padx=30)
 # -----------------// ↑ enter to Change Password section Button ↑ //-----------------
 
 
 # -----------------// Exit Button //-----------------
 Exit = Button(f2, text="EXIT", bg='gray', relief="groove", bd= 5, font=("Helvetica", 10), command=Window.destroy)
-Exit.pack(side=RIGHT)
+Exit.grid(row=0, column=2, pady=10, sticky=E)
 # -----------------// Exit Button //-----------------
 
 Window.mainloop()
