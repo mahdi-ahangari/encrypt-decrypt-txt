@@ -11,7 +11,24 @@ f1 = Frame(Window)        # frame 1 button ha dakheleshe
 f1.pack(pady=20)
 
 # -----------------// Master Password //-----------------
-secretKey = "Fghcwnv/Rcuuyqtf"    #  encrypted master password
+secretKey = "Fghcwnv/Rcuuyqtf"
+
+        # -------------// ave TxT Password //-----------------
+def writeSecret():
+    global secretKey
+    with open("secretkey.TXT", "r+") as f:
+        X = f.readlines()[0:]
+        if "Fghcwnv/Rcuuyqtf" not in X and len(X)<2:
+            f.truncate()
+            f.write("Please Don't Change anything, if you want to reset password just delete file\n")
+            f.write("Fghcwnv/Rcuuyqtf")
+        try:
+            secretKey = X[1].rstrip()
+        except IndexError:
+            pass
+writeSecret()
+        # -------------// Save TxT Password //-----------------
+
 def MasterPass(Key):
     finalPass = ""
     for i in Key :
@@ -21,6 +38,7 @@ def MasterPass(Key):
 
 
 # -----------------// command button ha //-----------------
+
 
 def encrypt():   # Gets all output text and encrypts it
     insideText2 = masterPass.get()                             # gets masterPassword Entry
@@ -96,6 +114,8 @@ f2.pack(pady=5, padx=19, fill="x")
 
 # -----------------// Change Password section (inside window2) //-----------------
 W2exist = False
+
+
 def NewWindow():
     global W2exist
     if not W2exist:
@@ -118,21 +138,34 @@ def NewWindow():
 
         l3 = Label(Window2,width=50).grid(row=4, column=0, sticky=W) # hidden Lable for fixing grid system
 
-# -----------------// Confirm Change Password Button (inside window2) //-----------------
+        # -------------// Confirm Change Password Button (inside window2) //-------------
+        
+        
         def Change():
-            global secretKey
+            global secretKey                   # daryaft har 2 input , check sehat original pass , change new one to original
             oldPassword = masterPass.get()
             newPassword = newPass.get()
             if oldPassword == MasterPass(secretKey):
                 En_newPass = ""
                 for i in newPassword:
                     En_newPass += chr((ord(i)+2))
-                else:
-                    secretKey = En_newPass
+                
+                with open("secretkey.TXT", "r+") as f:
+                    f.truncate()
+                    f.write("Please Don't Change anything\n")
+                    f.write(En_newPass)
+            else:
+                messagebox.showerror("password", "wrong password try again !")
+                Window2.focus_force()
         
         ChangePass = Button(Window2, text="Change Masster Password", bg='lightgray', font=("Helvetica", 10), command=Change)
         ChangePass.grid(row=3, column=0, pady=10)
-# -----------------// Confirm Change Password Button (inside window2) //-----------------
+
+        Exit2 = Button(Window2, text="EXIT", bg='gray', padx=8, relief="groove", bd=4, font=("Helvetica", 7), command=Window.destroy)
+        Exit2.grid(row=3, column=0, pady=15,sticky=E)
+        
+        
+        # -------------// Confirm Change Password Button (inside window2) //-------------
 
 
 
